@@ -1,0 +1,25 @@
+#!/bin/dash
+
+#Backup savestates for TASing with Dolphin under Linux
+#Has a companion restore script.
+
+#Savestates themselves are already compressed,
+#so dont' waste time compressing them again. Only compress
+#the companion .dtm files. This is much faster than tar.gz'ing
+#the whole folder.
+
+
+SS_DIR=$HOME/.local/share/dolphin-emu/StateSaves
+TEMP_DIR=/tmp/ssbackup
+OUT_DIR=$SS_DIR/..
+
+mkdir -p $TEMP_DIR/work
+cd $TEMP_DIR
+cp -t work $SS_DIR/*
+gzip work/*.dtm
+tar -cf ssbackup.tar work/*
+FILENAME=`date -u -Iseconds`.tar.ssbackup
+mv ssbackup.tar $OUT_DIR/$FILENAME
+cd /
+rm -r $TEMP_DIR/work
+rmdir $TEMP_DIR

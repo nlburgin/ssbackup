@@ -1,0 +1,22 @@
+#!/bin/dash
+
+#Restore Dolphin savestate backups made with ssbackup
+
+#Clobbers whatever savestates are already in the savestate directory
+#So you should probably make a backup before restoring another one.
+
+
+SS_DIR=$HOME/.local/share/dolphin-emu/StateSaves
+TEMP_DIR=/tmp/ssrestore
+OUT_DIR=$SS_DIR/..
+
+mkdir -p $TEMP_DIR
+mkdir -p $SS_DIR
+cd $TEMP_DIR
+tar -xf $*
+gunzip work/*.dtm.gz
+rm $SS_DIR/*
+mv -t $SS_DIR work/*
+cd /
+rm -r $TEMP_DIR/work
+rmdir $TEMP_DIR
