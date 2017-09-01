@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/sh
 
 #Restore Dolphin savestate backups made with ssbackup
 
